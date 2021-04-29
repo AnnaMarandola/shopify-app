@@ -1,9 +1,29 @@
-import { Heading, Page } from "@shopify/polaris";
+import { Page } from "@shopify/polaris";
+import { RessourcePicker } from "@shopify/app-bridge-react";
+import React, { useState } from "react";
 
-const Index = () => (
-  <Page>
-    <Heading>Shopify app with Node and React 🎉</Heading>
-  </Page>
-);
+function index() {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <Page
+      title="Product Selector"
+      primaryAction={{
+        content: "Select product",
+        onAction: () => setIsOpen(true),
+      }}
+    >
+      <RessourcePicker
+        ressourceType="Product"
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        onSelection={(payload) => {
+          setIsOpen(false);
+          console.log(payload);
+        }}
+      />
+    </Page>
+  );
+}
 
-export default Index;
+export default index;
+
